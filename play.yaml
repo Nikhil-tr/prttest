@@ -1,0 +1,13 @@
+- name: "play1-on node1"
+  hosts: node1
+  become: true
+  tasks:
+  - name: installing apache
+    script: apache.sh
+
+- name: "play2-on node 2"
+  hosts: node2
+  become: true
+  tasks:
+  - name: installing nginx
+    script: nginx.sh
