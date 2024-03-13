@@ -2,12 +2,53 @@
   hosts: node1
   become: true
   tasks:
-  - name: installing apache
-    script: apache.sh
+   - name: update & install apache2 on ubuntu
+     when: ansible_pkg_mgr == "apt"
+     apt:
+       update_cache: true
+       name: apache2
+       state: latest
+   - name: update & install httpd on centos
+     when: ansible_pkg_mgr == "yum"
+     yum:
+       update_cache: true
+       name: httpd
+       state: latest
+   - name: update & install httpd on amazon-linux
+     when: ansible_pkg_mgr == "dnf"
+     yum:
+       update_cache: true
+       name: httpd
+       state:latest
+       
+   - name: start apache2 on ubuntu/debian
+     when: ansible_pkg_mgr == "apt"
+     service:
+       name: apache2
+       state: started
+       
+   - name: start httpd in centos
+     when: ansible_pkg_mgr == "yum"
+     service:
+       name: httpd
+       state: started
+       
+   - name: start httpd in amazon-linux
+     when: ansible_pkg_mgr == "dnf"
+     service:
+       name: httpd
+       state: started
 
-- name: "play2-on node 2"
+- name: "play2-on server-node 2"
   hosts: node2
   become: true
   tasks:
-  - name: installing nginx
-    script: nginx.sh
+   - name: update & install nginx on ubuntu
+     apt:
+       update_cache: true
+       name: nginx
+       state: latest
+   - name: start nginx
+     service:
+          name: nginx
+          state: started
