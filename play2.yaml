@@ -1,0 +1,27 @@
+- name: "play1-on node1"
+  hosts: node1
+  become: true
+  tasks:
+    - name: update & install apache2 on ubuntu
+      apt:
+        update_cache: true
+        name: apache2
+        state: latest
+    - name: start apache2 on ubuntu/debian
+      service:
+        name: apache2
+        state: started
+
+- name: "play2-on node1"
+  hosts: node2
+  become: true
+  tasks:
+    - name: update & install nginx on ubuntu
+      apt:
+        update_cache: true
+        name: nginx
+        state: latest
+    - name: start nginx on ubuntu/debian
+      service:
+        name: nginx
+        state: started
