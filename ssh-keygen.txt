@@ -1,0 +1,14 @@
+to create and add ssh keys
+------------------------------
+on master
+sudo su -
+ssh-keygen
+cd ~/.ssh
+ls
+cat id_rsa                    #private to paste it on jenkins node
+cat id_rsa.pub                #to paste it on authorized_keys
+
+on nodes
+sudo su -
+nano ~/.ssh/authorized_keys
+paste id_rsa.pub
