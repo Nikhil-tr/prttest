@@ -8,18 +8,20 @@
        update_cache: true
        name: apache2
        state: latest
+       
    - name: update & install httpd on centos
      when: ansible_pkg_mgr == "yum"
      yum:
        update_cache: true
        name: httpd
        state: latest
+       
    - name: update & install httpd on amazon-linux
      when: ansible_pkg_mgr == "dnf"
      yum:
        update_cache: true
        name: httpd
-       state:latest
+       state: latest
        
    - name: start apache2 on ubuntu/debian
      when: ansible_pkg_mgr == "apt"
