@@ -1,27 +1,13 @@
-- name: "play1-on node1"
-  hosts: node1
+- name: "play1-on master"
+  hosts: localhost
   become: true
   tasks:
-    - name: update & install apache2 on ubuntu
-      apt:
-        update_cache: true
-        name: apache2
-        state: latest
-    - name: start apache2 on ubuntu/debian
-      service:
-        name: apache2
-        state: started
+  - name: installing java and jenkins
+    script: apache.sh
 
-- name: "play2-on node1"
+- name: "play2-on nodes"
   hosts: node2
   become: true
   tasks:
-    - name: update & install nginx on ubuntu
-      apt:
-        update_cache: true
-        name: nginx
-        state: latest
-    - name: start nginx on ubuntu/debian
-      service:
-        name: nginx
-        state: started
+  - name: installing java and docker
+    script: nginx.sh
